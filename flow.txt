@@ -1,0 +1,58 @@
+
+>>> First Glance Idea JotDown <<<<<
+1. 구현사항 정리하기
+- 메인 페이지 : 검색바 + trending 영상들 list로 보여줌
+- 검색결과 페이지 : 검색바 + 검색된 영상들 list로 보여줌
+- 비디오클릭한 페이지 : 검색바 + 영상 + 영상설명 + 관련 영상들 -> trending or 검색된 keyword 관련 영상
++ 모든 페이지는 반응형임
+
+2. UI component로 나누기
+- search bar
+- video : 개별 영상 (썸네일 + 제목 + 채널이름) 
+    -> 클릭하면 새로운 페이지로 redirect (상세 페이지) : videolist, video, title, channel, description이 다 보내져야함.
+- mainpage : search bar + video list
+
+*** 리액트는 페이지별로 어떻게 만들지? 디렉토리를 어떻게 정리를 하는 것이 좋을까?
+*** redirect하면 prop이 주어질 수 있음? 데이터를 저장하면서 페이지에 변동이 있을 수 있나?
+
+
+3. 전체적인 flow chart 작성 
+- 유튜브 api를 이용해서 데이터를 json형태로 받아옴 -> 
+    => json을 string array로 변환
+    => video들이 들어있는 array를 돌면서 썸네일url, 제목, 채널이름, url(링크)를 prop으로 보내기 : video component로
+- 인기동영상 / 검색된 keyword 관련 동영상인지에 따라 바뀌어야함
+    => default : 인기동영상
+    => searchbar에 검색어가 들어가서 submit되면 바뀌어야함
+    => state로 조정해야할 듯  (searchbar에서도 부모의 state를 바꿔야하는 쪽으로)
+- 상세페이지에서는 보내진 videolist, video, title, channel, description을 보여주기만 하면됨 -> stateless?
+
+-----------------------------------------------------------------------------------------------------------------
+
+>>>> Search bar <<<<
+- app과 연결하기 + render에 넣기
+    ㄴ> 에러 : import './components/searchBar'로 썼더니 틀림 
+    => 해결 : import SearchBar from './components/searchBar';로 써야함
+- youtube icon 넣기 
+    ㄴ> fontawesome yarn으로 설치 : yarn add @fortawesome/fontawesome-free
+    ㄴ> 에러 : 계속 icon이 안보임
+    => 해결 : index.js에 import '@fortawesome/fontawesome-free/js/all.js'; 추가
+    ㄴ> class 속성을 className으로 변경
+- searchBar.css 만듦 -> searchBar.jsx와 함께 searchBar 폴더안에 넣음
+
+
+
+----------------------------------------------------------------------
+
+>>>> Fetch <<<<<<<<<
+
+막힘 1 ))
+=> 왜 videoList의 length 0일까 ....왜 안나올까....
+
+        const API_KEY = "AIzaSyANisTUQjLFLaB1DI-jHriie0Bpy6ZXo58";
+        const URL = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&regionCode=kr&key=${API_KEY}`
+        let videoList = [];
+        fetch(URL).then(response => response.json())
+        .then(json => json.items.map(item => videoList.push(item))) 
+
+        videoList.map(video => console.log(video.kind));
+

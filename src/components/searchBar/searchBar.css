@@ -1,0 +1,47 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    padding: 0 15px;
+}
+
+.searchBar-logo {
+    display: flex;
+    align-items: center;
+    color : white;
+}
+
+.searchBar-youtubeIcon {
+    color: red;
+    font-size: 35px;
+    margin: 0 5px;
+}
+
+.searchBar-form {
+    width: 90%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.searchBar-input {
+    width: 85%;
+    height: 30px;
+    border: none;
+    margin-left: 40px;
+}
+
+.searchBar-input::placeholder {
+    padding-left: 10px;
+}
+
+.searchBar-searchIcon {
+    color: white;
+    background-color: darkgray;
+    height: 32px;
+    width: 33px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+}

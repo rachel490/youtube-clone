@@ -1,8 +1,14 @@
 import './app.css';
+import SearchBar from './components/searchBar/searchBar';
+import VideoList from './components/videoList/videoList';
 
 function App() {
-  return <h1>Hello World!!</h1>;
+  return (
+    <>
+      <SearchBar />
+      <VideoList />
+    </>
+  );
 }
-
 
 export default App;
