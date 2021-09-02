@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import './videoList.css';
 
 export default class VideoList extends Component {
 
@@ -10,8 +11,9 @@ export default class VideoList extends Component {
         fetch(URL)
         .then(response => response.json())
         .then(data => data.items.map(item => {
+            console.log(item);
             const video = {
-                thumbnail_url : item.snippet.thumbnails.default.url,
+                thumbnail_url : item.snippet.thumbnails.high.url,
                 title : item.snippet.title,
                 channel : item.snippet.channelTitle,
                 id : item.id
@@ -52,19 +54,19 @@ export default class VideoList extends Component {
         
         
         return (
-            <ul>
+            <ul className="videoList">
                 {
                     videos.map(video => {
                         const href=`https://www.youtube.com/watch?v=${video.id}`;
                         return (
-                            <li>
-                                <a href={href}><img src={video.thumbnail_url} alt="thumbnail" /></a>
-                                <h2>{video.title}</h2>
-                                <span>{video.channel}</span>
+                            <li className="videos">
+                                <a className="video-link" href={href}><img className="video-image" src={video.thumbnail_url} alt="thumbnail" /></a>
+                                <div className="video-text">
+                                    <span className="video-text_title">{video.title}</span>
+                                    <span className="video-text_channel">{video.channel}</span>
+                                </div>
                             </li>
-                        )
-                    }
-                    )
+                        )})
                 }
             </ul>
         )
